@@ -1,19 +1,15 @@
-class Solution(object):
-    def minNumberOperations(self, target):
-        """
-        :type target: List[int]
-        :rtype: int
-        """
-        
-        operations = 0
-        prev = 0
+# https://leetcode.com/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/description/
 
-        for i in target:
-            d = i - prev
+def minNumberOperations(target: list[int]) -> int:
+    operations = 0
+    prev = 0
 
-            if d > 0:
-                operations += d
+    for i in target:
+        d = i - prev
 
-            prev = i
-        
-        return operations
+        if d > 0:
+            operations += d
+
+        prev = i
+    
+    return operations # (28 ms)
