@@ -1,4 +1,4 @@
-# https://leetcode.com/problems/the-two-sneaky-numbers-of-digitville/description/
+# https://leetcode.com/problems/the-two-sneaky-numbers-of-digitville/
 
 def getSneakyNumbers(nums: list[int]) -> list[int]:
     # Method 1: Find when count(i) > 1
