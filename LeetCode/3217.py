@@ -4,7 +4,7 @@ from typing import Optional
 
 # Definition for singly-linked list.
 class ListNode(object):
-    def __init__(self, val=0, next=None):
+    def __init__(self, val = 0, next = None):
         self.val = val
         self.next = next
 
@@ -22,4 +22,4 @@ def modifiedList(nums: list[int], head: Optional[ListNode]) -> Optional[ListNode
         else:
             current = current.next
     
-    return p.next
+    return p.next # (135 ms)
