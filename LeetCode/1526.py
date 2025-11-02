@@ -1,15 +1,15 @@
 # https://leetcode.com/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/
 
 def minNumberOperations(target: list[int]) -> int:
-    operations = 0
-    prev = 0
+    o = 0
+    p = 0
 
     for i in target:
-        d = i - prev
+        d = i - p
 
         if d > 0:
-            operations += d
+            o += d
 
-        prev = i
+        p = i
     
-    return operations # (28 ms)
+    return o # (28 ms)
