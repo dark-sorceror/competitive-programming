@@ -14,12 +14,12 @@ def modifiedList(nums: list[int], head: Optional[ListNode]) -> Optional[ListNode
     p = ListNode(0)
     p.next = head
 
-    current = p
+    c = p
     
-    while current.next:
-        if current.next.val in nums:
-            current.next = current.next.next
+    while c.next:
+        if c.next.val in nums:
+            c.next = c.next.next
         else:
-            current = current.next
+            c = c.next
     
     return p.next # (135 ms)
