@@ -1,93 +1,40 @@
 # https://leetcode.com/problems/count-unguarded-cells-in-the-grid/
 
 def countUnguarded(m: int, n: int, guards: list[list[int]], walls: list[list[int]]) -> int:
-    grid = []
-    
-    for i in range(m):
-        grid.append([j*0 for j in range(n)])
-        
-    for i in guards:
-        for j in range(n):
-            if [i[0], j] == i:
-                grid[i[0]][j] = 2
-            #else:
-            #    grid[i[0]][j] = 1
-        for j in range(m):
-            if [j, i[1]] == i:
-                grid[j][i[1]] = 2
-            #else:
-            #    grid[j][i[1]] = 1
-                
-    for i in walls:
-        for j in range(n):
-            if [i[0], j] == i:
-                grid[i[0]][j] = -2
-        for j in range(m):
-            if [j, i[1]] == i:
-                grid[j][i[1]] = -2
+    grid = [[0] *n for i in range(m)]
 
-    transpose = []
-
-    for i in range(n):
-        transpose.append([])
-
-    for r in grid:
-        if r.count(2) == r.count(-2) and r.count(2) > 0:
-            if r.index(2) < r.index(-2):
-                guarded = True
-            else:
-                guarded = False
-        else:
-            if r.count(-2) == r.count(2) == 0:
-                guarded = False
-            elif r.count(-2) == 0:
-                guarded = True
-            else:
-                guarded = False
+    for x, y in guards:
+        grid[x][y] = 2
                 
-        for i in range(n):
-            if r[i] == 2:
-                guarded = True
-                
-            elif r[i] == -2:
-                guarded = False
+    for x, y in walls:
+        grid[x][y] = -2
+
+    directions = [
+        (0, -1), # North
+        (-1, 0), # West
+        (1, 0), # East
+        (0, 1) # South
+    ]
+
+    for x, y in guards:
+        for dx, dy in directions:
+            px = x + dx
+            py = y + dy
             
-            else:
-                if not guarded:
-                    grid[grid.index(r)][i] = 0
+            while 0 <= px < m and 0 <= py < n:
+                if grid[px][py] == 2 or grid[px][py] == -2:
+                    break
                 else:
-                    grid[grid.index(r)][i] = 1
+                    grid[px][py] = 1
                     
-            transpose[i].append(r[i])
+                px += dx
+                py += dy
 
-    for r in transpose:
-        if r.count(2) == r.count(-2) and r.count(2) > 0:
-            if r.index(2) < r.index(-2):
-                guarded = True
-            else:
-                guarded = False
-        else:
-            if r.count(-2) == r.count(2) == 0:
-                guarded = False
-            elif r.count(-2) == 0:
-                guarded = True
-            else:
-                guarded = False
-                
-        for i in range(m):
-            if r[i] == 2:
-                guarded = True
-                
-            elif r[i] == -2:
-                guarded = False
-            
-            else:
-                if guarded:
-                    transpose[transpose.index(r)][i] = 1
+    s = 0     
+    for i in grid:
+        for j in i:
+            if j == 0:
+                s += 1
 
-    s = 0
+    return s
     
-    for i in transpose:
-        s += sum(i)
-        
-    print(m * n - len(guards) - len(walls) - s)
