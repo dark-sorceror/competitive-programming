@@ -2,20 +2,22 @@
 
 def findXSum(nums: list[int], k: int, x: int) -> list[int]:
     t = []
-    s = 0
+
     for i in range(len(nums) - k + 1):
         d = dict()
 
-        for j in set(nums[i : i + k]):
-            d[j] = nums[i : i + k].count(j)
+        for j in nums[i : i + k]:
+            d[j] = d.get(j, 0) + 1
         
-        soa = dict(sorted(d.items(), key=lambda item: (item[1], item[0]), reverse=True))
+        soa = sorted(d.items(), key=lambda item: (-item[1], -item[0]))
 
         s = 0
-        
-        for i in range(x):
-            s += list(soa.values())[i] * list(soa.keys())[i]
+
+        if len(soa) < x: s = sum(nums[i : i + k])
+        else:
+            for j in range(x):
+                s += soa[j][0] * soa[j][1]
             
         t.append(s)
     
-    return t
+    return t # (20 ms)
