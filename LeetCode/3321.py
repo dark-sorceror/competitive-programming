@@ -1,3 +1,4 @@
+# Incomplete
 # https://leetcode.com/problems/find-x-sum-of-all-k-long-subarrays-ii
 
 def findXSum(nums: list[int], k: int, x: int) -> list[int]:
