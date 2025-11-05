@@ -1,3 +1,4 @@
+# Incomplete
 # https://leetcode.com/problems/k-th-smallest-in-lexicographical-order/
 
 def findKthNumber(n: int, k: int) -> int:
