@@ -1,4 +1,4 @@
-# https://leetcode.com/problems/find-x-sum-of-all-k-long-subarrays-i/
+# https://leetcode.com/problems/find-x-sum-of-all-k-long-subarrays-ii
 
 def findXSum(nums: list[int], k: int, x: int) -> list[int]:
     t = []
@@ -20,4 +20,4 @@ def findXSum(nums: list[int], k: int, x: int) -> list[int]:
             
         t.append(s)
     
-    return t # (20 ms)
+    return t
