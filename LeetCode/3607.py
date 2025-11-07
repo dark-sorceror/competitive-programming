@@ -1,7 +1,10 @@
 # https://leetcode.com/problems/power-grid-maintenance/
 
+from collections import defaultdict
+import heapq
+
 def processQueries(c: int, connections: list[list[int]], queries: list[list[int]]) -> list[int]:
-    p, g, o, r = list(range(c + 1)), [1] * (c + 1), [True] * (c + 1), []
+    p, ct, co, o, r = list(range(c + 1)), defaultdict(list), {}, [True] * (c + 1), []
     
     def find(i):
         if i == p[i]: return i
@@ -13,7 +16,6 @@ def processQueries(c: int, connections: list[list[int]], queries: list[list[int]
         
         if i != j:
             p[j] = i
-            g[i] += 1
             
             return True
         
@@ -21,6 +23,16 @@ def processQueries(c: int, connections: list[list[int]], queries: list[list[int]
     
     for u, v in connections:
         union(u, v)
+    
+    for i in range(1, c + 1):
+        ct[find(i)].append(i)
+        
+    co = {}
+    
+    for i, j in ct.items():
+        heap = j[:]
+        heapq.heapify(heap)
+        co[i] = heap
     
     for i, j in queries:
         root = find(j)
@@ -31,12 +43,23 @@ def processQueries(c: int, connections: list[list[int]], queries: list[list[int]
                 
                 continue
             
-            if g[root] >= 1:
-                r.append(o[root:].index(max(o[root:])) + root)
+            heap = co[root]
             
-            if g[root] <= 0: r.append(-1)
+            while heap and not o[heap[0]]:
+                heapq.heappop(heap)
+            if heap:
+                r.append(heap[0])
+            else:
+                r.append(-1)
+
         else:
-            g[root] -= 1
-            o[j] = False
+            if o[j]:
+                o[j] = False
             
     return r
+
+c =2
+connections =[[2,1]]
+queries =[[1,1],[1,2],[1,2],[2,2],[1,2],[2,1],[1,2],[2,1],[2,1],[1,1]]
+
+print(processQueries(c, connections, queries))
