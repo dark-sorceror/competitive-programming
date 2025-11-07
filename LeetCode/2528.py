@@ -1,6 +1,8 @@
 # https://leetcode.com/problems/maximize-the-minimum-powered-city/
 
 def maxPower(stations: list[int], r: int, k: int) -> int:
+    if r == 0: return min(stations)
+    
     n, t, s = len(stations), [0], 0
 
     for i in range(n):
@@ -25,7 +27,7 @@ def maxPower(stations: list[int], r: int, k: int) -> int:
                 
                 rem -= need
                 a += need
-                e = i + 2 * r + 1
+                e = min(i + r, n -1) + r + 1
                 
                 if e < n: t[e] -= need
                     
