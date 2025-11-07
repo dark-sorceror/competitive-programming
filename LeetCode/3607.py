@@ -7,8 +7,8 @@ def processQueries(c: int, connections: list[list[int]], queries: list[list[int]
     p, ct, co, o, r = list(range(c + 1)), defaultdict(list), {}, [True] * (c + 1), []
     
     def find(i):
-        if i == p[i]: return i
-        return find(p[i])
+        if i != p[i]: p[i] = find(p[i])
+        return p[i]
     
     def union(i, j):
         i = find(i)
