@@ -14,20 +14,13 @@ def processQueries(c: int, connections: list[list[int]], queries: list[list[int]
         i = find(i)
         j = find(j)
         
-        if i != j:
-            p[j] = i
-            
-            return True
-        
-        return False
+        if i != j: p[j] = i
     
     for u, v in connections:
         union(u, v)
     
     for i in range(1, c + 1):
         ct[find(i)].append(i)
-        
-    co = {}
     
     for i, j in ct.items():
         heap = j[:]
@@ -47,19 +40,10 @@ def processQueries(c: int, connections: list[list[int]], queries: list[list[int]
             
             while heap and not o[heap[0]]:
                 heapq.heappop(heap)
-            if heap:
-                r.append(heap[0])
-            else:
-                r.append(-1)
+            if heap: r.append(heap[0])
+            else:r.append(-1)
 
         else:
-            if o[j]:
-                o[j] = False
+            if o[j]: o[j] = False
             
-    return r
-
-c =2
-connections =[[2,1]]
-queries =[[1,1],[1,2],[1,2],[2,2],[1,2],[2,1],[1,2],[2,1],[2,1],[1,1]]
-
-print(processQueries(c, connections, queries))
+    return r # (866 ms)
