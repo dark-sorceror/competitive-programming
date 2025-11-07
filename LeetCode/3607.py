@@ -1,14 +1,42 @@
 # https://leetcode.com/problems/power-grid-maintenance/
 
-def processQueries(c: int, connections: list[list[int, int]], queries: list[list[int, int]]) -> list[int]:
-    g, o = [] if not connections else [i for i, j in connections.append([0, len(connections) + 1])], []
-
-    for i, j in queries:
-        if not g: return [1, -1]
+def processQueries(c: int, connections: list[list[int]], queries: list[list[int]]) -> list[int]:
+    p, g, o, r = list(range(c + 1)), [1] * (c + 1), [True] * (c + 1), []
+    
+    def find(i):
+        if i == p[i]: return i
+        return find(p[i])
+    
+    def union(i, j):
+        i = find(i)
+        j = find(j)
+        
+        if i != j:
+            p[j] = i
+            g[i] += 1
             
-        if i == 1:
-            if j in g: o.append(j)
-            else: o.append(g[0])
-        else: g.remove(j)
+            return True
+        
+        return False
+    
+    for u, v in connections:
+        union(u, v)
+    
+    for i, j in queries:
+        root = find(j)
 
-    return o
+        if i == 1:
+            if o[j]:
+                r.append(j)
+                
+                continue
+            
+            if g[root] >= 1:
+                r.append(o[root:].index(max(o[root:])) + root)
+            
+            if g[root] <= 0: r.append(-1)
+        else:
+            g[root] -= 1
+            o[j] = False
+            
+    return r
