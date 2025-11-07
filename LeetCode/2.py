@@ -18,7 +18,7 @@ def addTwoNumbers(l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[Li
         j = l2.val if l2 else 0
         
         s = i + j + carry
-        carry = (i + j) // 10
+        carry = s // 10
         
         c.next = ListNode(s % 10)
         c = c.next
@@ -26,4 +26,4 @@ def addTwoNumbers(l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[Li
         l1 = l1.next if l1 else None
         l2 = l2.next if l2 else None
     
-    return d.next
+    return d.next # (4 ms)
