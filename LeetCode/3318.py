@@ -10,7 +10,6 @@ def findXSum(nums: list[int], k: int, x: int) -> list[int]:
             d[j] = d.get(j, 0) + 1
         
         sd = sorted(d.items(), key=lambda item: (-item[1], -item[0]))
-
         s = 0
 
         if len(sd) < x: s = sum(nums[i : i + k])
