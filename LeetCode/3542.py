@@ -1,32 +1,39 @@
+# https://leetcode.com/problems/minimum-operations-to-convert-all-elements-to-zero/
+
 def minOperations(nums: list[int]) -> int:
-    if all(i == 0 for i in nums): return 0
+    i, r = 0, 0
     
-    s, t = [], []
+    def dfs(l, r):
+        i, res, m = l, 1, min(nums[l:r])
 
-    for i in nums:
-        if i == 0:
-            if t:
-                s.append(t)
-                t = []
-        else: t.append(i)
+        while i <= (r - 1):
+            if nums[i] == m:
+                i += 1
+                
+                continue
+            
+            j = i
+            
+            while j <= (r - 1) and nums[j] != m:
+                j += 1
+                
+            res += dfs(i, j)
+            i = j
         
-    if t: s.append(t)
+        return res
 
-    if len(s) > 1: return sum(minOperations(i) for i in s)
-    
-    nums = s[0]
-    m = min(nums)
-    nums = [0 if i == m else i for i in nums]
-
-    s, t = [], []
-
-    for i in nums:
-        if i == 0:
-            if t:
-                s.append(t)
-                t = []
-        else: t.append(i)
+    while i < len(nums):
+        if nums[i] == 0:
+            i += 1
+            
+            continue
         
-    if t: s.append(t)
-
-    return 1 + sum(minOperations(i) for i in s)
+        j = i
+        
+        while j < len(nums) and nums[j] != 0:
+            j += 1
+ 
+        r += dfs(i, j)
+        i = j
+        
+    return r
