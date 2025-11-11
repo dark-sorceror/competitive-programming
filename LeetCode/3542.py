@@ -1,3 +1,4 @@
+# Incomplete
 # https://leetcode.com/problems/minimum-operations-to-convert-all-elements-to-zero/
 
 def minOperations(nums: list[int]) -> int:
