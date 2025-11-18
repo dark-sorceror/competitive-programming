@@ -1,4 +1,5 @@
 # https://leetcode.com/problems/1-bit-and-2-bit-characters/
+
 def isOneBitCharacter(bits: list[int]) -> bool:
     i, n = 0, len(bits)
     
