@@ -1,10 +1,5 @@
 # https://leetcode.com/problems/1-bit-and-2-bit-characters/
-def isOneBitCharacter(bits):
-    """
-    :type bits: List[int]
-    :rtype: bool
-    """
-
+def isOneBitCharacter(bits: list[int]) -> bool:
     i, n = 0, len(bits)
     
     while i < n - 1:
