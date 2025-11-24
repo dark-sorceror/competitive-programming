@@ -1,6 +1,6 @@
 # https://leetcode.com/problems/increment-submatrices-by-one/
 
-def rangeAddQueries(n, queries):
+def rangeAddQueries(n: int, queries: list[list[int]]) -> list[list[int]]:
     d = [[0] * (n + 1) for i in range(n + 1)]
 
     for r1, c1, r2, c2 in queries:
