@@ -18,7 +18,10 @@ def countPermutations(complexity: list[int]) -> int:
             r.add(i)
             
     for i in range(1, n):
-        c = 1
+        c = len(r)
+        
+        if not c:
+            return 0
         
         t = (t * c) % (10 ** 9 + 7)
         
