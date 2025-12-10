@@ -1,32 +1,12 @@
 # https://leetcode.com/problems/count-the-number-of-computer-unlocking-permutations/
 
 def countPermutations(complexity: list[int]) -> int:
-    t = 1
-    n = len(complexity)
-    p = [set() for i in complexity]
+    t, n = 1, len(complexity)
     
     for i in range(1, n):
-        for j in range(i):
-            if complexity[j] < complexity[i]:
-                p[i].add(j)
+        if complexity[i] <= complexity[0]: return 0
         
-    u = {0}
-    r = set()
-    
     for i in range(1, n):
-        if 0 in p[i]:
-            r.add(i)
-            
-    for i in range(1, n):
-        c = len(r)
+        t = t * i % (10 ** 9 + 7)
         
-        if not c:
-            return 0
-        
-        t = (t * c) % (10 ** 9 + 7)
-        
-        k = next(iter(r))
-        r.remove(k)
-        u.add(k)
-        
-    return t
+    return t # (12 ms)
