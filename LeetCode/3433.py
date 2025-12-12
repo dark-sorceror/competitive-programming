@@ -1,51 +1,41 @@
 # https://leetcode.com/problems/count-mentions-per-user/
 
-from collections import defaultdict
+import heapq
 
 def countMentions(numberOfUsers: int, events: list[list[str]]) -> list[int]:
-    m = [0] * numberOfUsers
-    us = defaultdict(int)
-
+    m, on, off = [0] * numberOfUsers, [True] * numberOfUsers, []
+    ac = 0
     tmp = {"OFFLINE": 0, "MESSAGE": 1}
+    se = sorted(events, key=lambda e: (int(e[1]), tmp[e[0]]))
 
-    se = [] # Timestamp, event type key, event
-    for i in events:
-        t = int(i[1])
-        et = i[0]
-        tk = tmp[et]
-
-        se.append((t, tk, i))
-    
-    se.sort()
-
-    for i, j, k in se:
-        et = k[0]
-
-        for uid in range(numberOfUsers):
-            if us[uid] > 0 and i >= us[uid]: 
-                us[uid] = 0
+    for i in se:
+        et, t, c = i
+        t = int(t)
+        
+        while off and off[0][0] <= t:
+            i, j = heapq.heappop(off)
+            on[j] = True
         
         if et == "OFFLINE":
-            uid = int(k[2])
-            us[uid] = i + 60
-        elif et == "MESSAGE":
-            ms = k[2]
-            mids = []
+            uid = int(c)
+            on[uid] = False
             
-            if ms == "ALL":
-                mids = list(range(numberOfUsers))
+            heapq.heappush(off, (t + 60, uid))
+        elif et == "MESSAGE":
+            if c == "ALL": ac += 1
+            elif c == "HERE":
+                for k in range(numberOfUsers):
+                    if on[k]: m[k] += 1
             else:
-                tok = ms.split()
+                tok = c.split()
 
                 for n in tok:
                     if n.startswith("id") and n[2:].isdigit():
                         uid = int(n[2:])
 
-                        if 0 <= uid < numberOfUsers:
-                            mids.append(uid)
+                        if 0 <= uid < numberOfUsers: m[uid] += 1
 
-            for n in mids:
-                if us[uid] == 0:
-                    m[uid] += 1
+    for i in range(numberOfUsers):
+        m[i] += ac
                     
     return m
