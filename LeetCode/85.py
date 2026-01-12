@@ -22,6 +22,3 @@ def maximalRectangle(matrix: list[list[str]]) -> int:
             s.append(j)
             
     return a # (17 ms)
-
-matrix =[["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
-print(maximalRectangle(matrix))
