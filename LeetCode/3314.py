@@ -4,10 +4,12 @@ def minBitwiseArray(nums: list[int]) -> list[int]:
     ans = []
 
     for i in nums:
-        for j in range(1, 10):
-            if (i >> j) & 1 == 0:
-                ans.append(i ^ (1 << (j - 1)))
+        if i == 2: ans.append(-1)
+        else:
+            for j in range(1, 10):
+                if (i >> j) & 1 == 0:
+                    ans.append(i ^ (1 << (j - 1)))
 
-                break
+                    break
     
-    return ans
+    return ans # (0 ms)
