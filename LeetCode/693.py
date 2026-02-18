@@ -1,0 +1,9 @@
+# https://leetcode.com/problems/binary-number-with-alternating-bits/
+
+def hasAlternatingBits(n: int) -> bool:
+    while n > 0:
+        if (n & 1) == ((n >> 1) & 1): return False
+
+        n >>= 1
+        
+    return True # (0 ms)
