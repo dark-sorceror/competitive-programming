@@ -2,6 +2,30 @@
 
 from collections import deque
 
+class DSU:
+    def __init__(self, n):
+        self.parent = list(range(n + 3))
+        
+    def find(self, i):
+        if self.parent[i] == i:
+            return i
+
+        root = i
+
+        while self.parent[root] != root:
+            root = self.parent[root]
+            
+        curr = i
+
+        while curr != root:
+            nxt = self.parent[curr]
+
+            self.parent[curr] = root
+
+            curr = nxt
+            
+        return root
+
 def minOperations(s: str, k: int) -> int:
     n = len(s)
     z = s.count('0')
@@ -9,24 +33,33 @@ def minOperations(s: str, k: int) -> int:
     if z == 0:
         return 0
 
-    q = deque([(z, 0)])
-    v = {z}
+    d = [DSU(n), DSU(n)]
+
+    p_start = z % 2
+    d[p_start].parent[z] = d[p_start].find(z + 2)
     
-    # BFS
+    q = deque([(z, 0)])
+    
     while q:
-        curr_z, steps = q.popleft()
+        x, dist = q.popleft()
         
-        min_j = max(0, k - (n - curr_z))
-        max_j = min(curr_z, k)
+        y_min = max(0, x + k - n)
+        y_max = min(x, k)
+
+        z_min = x + k - 2 * y_max
+        z_max = x + k - 2 * y_min
         
-        for j in range(min_j, max_j + 1):
-            next_z = curr_z + k - 2 * j
-            
-            if next_z == 0:
-                return steps + 1
-            
-            if next_z not in v:
-                v.add(next_z)
-                q.append((next_z, steps + 1))
+        p = z_min % 2
+        
+        c = d[p].find(z_min)
+
+        while c <= z_max:
+            if c == 0:
+                return dist + 1
                 
+            q.append((c, dist + 1))
+            
+            d[p].parent[c] = d[p].find(c + 2)
+            c = d[p].find(c)
+            
     return -1
