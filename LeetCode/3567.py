@@ -22,4 +22,4 @@ def minAbsDiff(grid: list[list[int]], k: int) -> list[list[int]]:
             
             a[i][j] = m_diff if m_diff != float('inf') else 0
             
-    return a
+    return a # (38 ms)
