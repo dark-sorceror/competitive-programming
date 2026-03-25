@@ -23,4 +23,4 @@ def canPartitionGrid(grid: list[list[int]]) -> bool:
         if c == t:
             return True
             
-    return False
+    return False # (101 ms)
