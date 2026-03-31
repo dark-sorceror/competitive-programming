@@ -1,0 +1,7 @@
+# https://leetcode.com/problems/check-if-strings-can-be-made-equal-with-operations-ii/description/
+
+def checkStrings(s1: str, s2: str) -> bool:
+    if sorted(s1[::2]) == sorted(s2[::2]) and sorted(s1[1::2]) == sorted(s2[1::2]):
+        return True
+
+    return False # (91 ms)
