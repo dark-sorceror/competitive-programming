@@ -1,0 +1,17 @@
+{
+    "C_Cpp.default.compilerPath": "/usr/bin/clang++",
+    "C_Cpp.default.cppStandard": "c++20",
+    "C_Cpp.default.cStandard": "c17",
+    "C_Cpp.default.intelliSenseMode": "macos-clang-arm64",
+    "C_Cpp.debugShortcut": false,
+    "code-runner.executorMap": {
+        "cpp": "mkdir -p \"$workspaceRoot/.build\" && /usr/bin/clang++ -std=c++20 -Wall -Wextra -g $fullFileName -o \"$workspaceRoot/.build/run-cpp\" && \"$workspaceRoot/.build/run-cpp\"",
+        "c": "mkdir -p \"$workspaceRoot/.build\" && /usr/bin/clang -std=c17 -Wall -Wextra -g $fullFileName -o \"$workspaceRoot/.build/run-c\" && \"$workspaceRoot/.build/run-c\""
+    },
+    "code-runner.runInTerminal": true,
+    "code-runner.fileDirectoryAsCwd": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.ignoreSelection": true,
+    "code-runner.showRunIconInEditorTitleMenu": true,
+    "code-runner.enableAppInsights": false
+}
