@@ -1,16 +1,16 @@
 {
     "C_Cpp.default.compilerPath": "/usr/bin/clang++",
-    "C_Cpp.default.cppStandard": "c++20",
+    "C_Cpp.default.cppStandard": "c++17",
     "C_Cpp.default.cStandard": "c17",
     "C_Cpp.default.intelliSenseMode": "macos-clang-arm64",
     "C_Cpp.debugShortcut": false,
     "code-runner.executorMap": {
-        "cpp": "mkdir -p \"$workspaceRoot/.build\" && /usr/bin/clang++ -std=c++20 -Wall -Wextra -g $fullFileName -o \"$workspaceRoot/.build/run-cpp\" && \"$workspaceRoot/.build/run-cpp\"",
+        "cpp": "cd $dir && mkdir -p \"$workspaceRoot/.build\" && /usr/bin/clang++ -std=c++17 -Wall -Wextra -g $fullFileName -o \"$workspaceRoot/.build/run-cpp\" && if [ -f \"$fileNameWithoutExt.in\" ]; then \"$workspaceRoot/.build/run-cpp\" < \"$fileNameWithoutExt.in\" > \"$fileNameWithoutExt.actual\" && cat \"$fileNameWithoutExt.actual\" && if [ -f \"$fileNameWithoutExt.out\" ]; then diff -w \"$fileNameWithoutExt.out\" \"$fileNameWithoutExt.actual\" && echo PASS; fi; else \"$workspaceRoot/.build/run-cpp\"; fi",
         "c": "mkdir -p \"$workspaceRoot/.build\" && /usr/bin/clang -std=c17 -Wall -Wextra -g $fullFileName -o \"$workspaceRoot/.build/run-c\" && \"$workspaceRoot/.build/run-c\""
     },
     "code-runner.runInTerminal": true,
     "code-runner.fileDirectoryAsCwd": true,
-    "code-runner.saveFileBeforeRun": true,
+    "code-runner.saveAllFilesBeforeRun": true,
     "code-runner.ignoreSelection": true,
     "code-runner.showRunIconInEditorTitleMenu": true,
     "code-runner.enableAppInsights": false
