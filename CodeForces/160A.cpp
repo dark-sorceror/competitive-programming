@@ -30,7 +30,7 @@ int main() {
         valueTaken += coin;
         coinsTaken++;
 
-        if (coinsTaken > totalValue - valueTaken) {
+        if (valueTaken > totalValue - valueTaken) {
             break;
         }
     }
