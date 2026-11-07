@@ -16,23 +16,26 @@ int main() {
         std::cin >> i;
     }
 
-    int minimumHeight = 1000000;
-    int bestStart = 0;
+    int windowSum = 0;
 
-    for (int i = 1; i <= n - k + 1; i++) {
-        int windowSum = 0;
+    for (int i = 0; i < k; i++) {
+        windowSum += heights[i];
+    }
 
-        for (int j = 0; j < k; j++) {
-            windowSum += heights[j + i - 1];
-        }
+    int minimumHeight = windowSum;
+    int bestStart = 1;
+
+    for (int i = 1; i <= n - k; i++) {
+        windowSum -= heights[i - 1];
+        windowSum += heights[i + k - 1];
 
         if (windowSum < minimumHeight) {
             minimumHeight = windowSum;
-            bestStart = i;
+            bestStart = i + 1;
         }
     }
 
     std::cout << bestStart << std::endl;
 
-    return 0; // T: O(n * k)
+    return 0; // T: O(n)
 }
